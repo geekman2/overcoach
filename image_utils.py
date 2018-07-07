@@ -24,9 +24,9 @@ class ImageCleaner(object):
 		return match_area
 
 	def amplify(self, image_path, preserve_area, color):
-		colormap = {'red':[255,0,0,0],
-					'green':[0,255,0,0],
-					'blue':[0,0,255,0]}
+		colormap = {'red':[255,0,0,255],
+					'green':[0,255,0,255],
+					'blue':[0,0,255,255]}
 
 		data = self.get_rgb_array(image_path)
 		data[..., :][preserve_area.T] = colormap[color]
