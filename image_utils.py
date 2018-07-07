@@ -47,8 +47,9 @@ class ImageCleaner(object):
 		red = self.colormap['red']
 		percent_blue = (data == blue).all(axis=2).mean(axis=0)
 		percent_red = (data == red).all(axis=2).mean(axis=0)
-		minimum_percent_blue = percent_blue.max()
-		minimum_percent_red = percent_red.max()
+		error_margin=0.05
+		minimum_percent_blue = percent_blue.max()-error_margin
+		minimum_percent_red = percent_red.max()-error_margin
 		relevant = data[:,
 						np.where(percent_blue >= minimum_percent_blue)[0].min() : 
 						np.where(percent_red >= minimum_percent_red)[0].max(), :
