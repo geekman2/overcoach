@@ -10,9 +10,13 @@ error() {
 	exit 1
 }
 
+drun(){
+	docker run -v $PWD:/code overcoach
+}
+
 git add .
 git commit -m "$*"
 rm -f images/*
 #docker build -t overcoach .
-trap docker run -v $PWD:/code overcoach 0
+trap drun 0
 eog images/*
