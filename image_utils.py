@@ -48,7 +48,7 @@ class ImageCleaner(object):
 		print((data == red).mean(axis=(0,2)).shape)
 		print(percent_blue)
 		relevant = data[:,
-						np.where(percent_red < 0.75)[0].min() : np.where(percent_red < 0.95)[0].max(), :]
+						np.where(percent_red < 0.95)[0].min() : np.where(percent_red < 0.95)[0].max(), :]
 		#print(relevant[0])
 		print("Shape After:",relevant.shape)
 		return relevant
