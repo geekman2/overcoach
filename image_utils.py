@@ -8,6 +8,12 @@ class ImageCleaner(object):
 	def __init__(self):
 		super(ImageCleaner, self).__init__()
 		self.count = 0
+		self.colormap = {'red':[255,0,0,255],
+						 'green':[0,255,0,255],
+						 'blue':[0,0,255,255]
+						 'black':[0,0,0,255],
+						 'white':[255,255,255,255]
+					}
 
 	def get_rgb_array(self, image_path):
 		image = Image.open(image_path)
@@ -24,29 +30,28 @@ class ImageCleaner(object):
 		return match_area
 
 	def amplify(self, image_path, preserve_area, color):
-		colormap = {'red':[255,0,0,255],
-					'green':[0,255,0,255],
-					'blue':[0,0,255,255]}
-
 		data = self.get_rgb_array(image_path)
-		data[..., :][preserve_area.T] = colormap[color]
+		data[..., :][preserve_area.T] = self.colormap[color]
 		return data
 
 	def blackout(self, image_path, preserve_area):
 		data = self.get_rgb_array(image_path)
 		blackout_area = np.invert(preserve_area)
-		data[..., :][blackout_area.T] = (0, 0, 0, 255)
+		data[..., :][blackout_area.T] = self.colormap['white']
 		return data
 	
 	def horizontal_crop(self, image_path):
 		data = self.get_rgb_array(image_path)
 		print("Shape Before:", data.shape)
-		blue = (0,0,255, 255)
-		red = (255,0,0, 255)
-		percent_blue = (data == blue).mean(axis=2)
-		percent_red = (data == red).mean(axis=2)
+		blue = self.colormap['blue']
+		red = self.colormap['red']
+		percent_blue = (data == blue).mean(axis=(0,2))
+		percent_red = (data == red).mean(axis=(0,2))
+		minimum_percent = 0.95
 		relevant = data[:,
-						np.where(percent_blue > 0.75)[0].min() : np.where(percent_red > 0.75)[0].max(), :]
+						np.where(percent_blue > minimum_percent)[0].min() : 
+						np.where(percent_red > minimum_percent)[0].max(), :
+						]
 		#print(relevant[0])
 		print("Shape After:",relevant.shape)
 		return relevant
