@@ -45,8 +45,8 @@ class ImageCleaner(object):
 		print("Shape Before:", data.shape)
 		blue = self.colormap['blue']
 		red = self.colormap['red']
-		percent_blue = (data == blue).mean(axis=0).mean(axis=2)
-		percent_red = (data == red).mean(axis=0).mean(axis=2)
+		percent_blue = (data == blue).mean(axis=2).mean(axis=0)
+		percent_red = (data == red).mean(axis=2).mean(axis=0)
 		minimum_percent = 0.75
 		relevant = data[:,
 						np.where(percent_blue > minimum_percent)[0].min() : 
@@ -56,21 +56,21 @@ class ImageCleaner(object):
 		print("Shape After:",relevant.shape)
 		return relevant
 
-	def vertical_crop(self, image_path):
-		data = self.get_rgb_array(image_path)
-		print("Shape Before:", data.shape)
-		blue = self.colormap['blue']
-		red = self.colormap['red']
-		percent_blue = (data == blue).all(axis=2).mean(axis=1)
-		percent_red = (data == red).all(axis=2).mean(axis=1)
-		minimum_percent = 0.75
-		relevant = data[:,
-						np.where(percent_blue > minimum_percent)[0].min() : 
-						np.where(percent_red > minimum_percent)[0].max(), :
-						]
-		#print(relevant[0])
-		print("Shape After:",relevant.shape)
-		return relevant
+	# def vertical_crop(self, image_path):
+	# 	data = self.get_rgb_array(image_path)
+	# 	print("Shape Before:", data.shape)
+	# 	blue = self.colormap['blue']
+	# 	red = self.colormap['red']
+	# 	percent_blue = (data == blue).all(axis=2).mean(axis=1)
+	# 	percent_red = (data == red).all(axis=2).mean(axis=1)
+	# 	minimum_percent = 0.75
+	# 	relevant = data[:,
+	# 					np.where(percent_blue > minimum_percent)[0].min() : 
+	# 					np.where(percent_red > minimum_percent)[0].max(), :
+	# 					]
+	# 	#print(relevant[0])
+	# 	print("Shape After:",relevant.shape)
+	# 	return relevant
 
 	def save_array_to_disk(self, array, filename):
 		image = Image.fromarray(array)
