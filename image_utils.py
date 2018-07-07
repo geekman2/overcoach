@@ -50,8 +50,8 @@ class ImageCleaner(object):
 		minimum_percent_blue = percent_blue.max()
 		minimum_percent_red = percent_red.max()
 		relevant = data[:,
-						np.where(percent_blue > minimum_percent_blue)[0].min() : 
-						np.where(percent_red > minimum_percent_red)[0].max(), :
+						np.where(percent_blue >= minimum_percent_blue)[0].min() : 
+						np.where(percent_red >= minimum_percent_red)[0].max(), :
 						]
 		#print(relevant[0])
 		print("Shape After:",relevant.shape)
