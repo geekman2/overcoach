@@ -43,10 +43,8 @@ class ImageCleaner(object):
 		print("Shape Before:", data.shape)
 		blue = (0,0,255, 255)
 		red = (255,0,0, 255)
-		percent_blue = (data == blue).mean(axis=(0,2))
-		percent_red = (data == red).mean(axis=(0,2))
-		print((data == red).mean(axis=(0,2)).shape)
-		print(percent_blue)
+		percent_blue = (data == blue).mean(axis=0)
+		percent_red = (data == red).mean(axis=0)
 		relevant = data[:,
 						np.where(percent_blue > 0.75)[0].min() : np.where(percent_red > 0.75)[0].max(), :]
 		#print(relevant[0])
