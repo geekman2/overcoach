@@ -45,8 +45,8 @@ class ImageCleaner(object):
 		print("Shape Before:", data.shape)
 		blue = self.colormap['blue']
 		red = self.colormap['red']
-		percent_blue = (data == blue).mean(axis=(0,2))
-		percent_red = (data == red).mean(axis=(0,2))
+		percent_blue = (data == blue).all(axis=2).mean(axis=0)
+		percent_red = (data == red).all(axis=2).mean(axis=0)
 		minimum_percent = 0.85
 		relevant = data[:,
 						np.where(percent_blue > minimum_percent)[0].min() : 
