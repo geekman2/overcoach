@@ -14,7 +14,7 @@ red = image_cleaner.find_color(image_path,(225, 40, 50), 50)
 #Amplify the red because it's too dark
 amped_red = image_cleaner.amplify(image_path, red, 'red')
 amped_red_image = image_cleaner.save_array_to_disk(amped_red, 'amped_red')
-amped_blue = image_cleaner.amplify(amped_red, blue, 'blue')
+amped_blue = image_cleaner.amplify(amped_red_image, blue, 'blue')
 amped_blue_image = image_cleaner.save_array_to_disk(amped_blue, 'amped_blue')
 
 
