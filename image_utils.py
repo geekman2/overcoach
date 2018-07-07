@@ -35,7 +35,7 @@ class ImageCleaner(object):
 	def blackout(self, image_path, preserve_area):
 		data = self.get_rgb_array(image_path)
 		blackout_area = np.invert(preserve_area)
-		data[..., :][blackout_area.T] = (0, 0, 0, 255)
+		data[..., :][blackout_area.T] = (255, 255, 255, 255)
 		return data
 	
 	def horizontal_crop(self, image_path):
