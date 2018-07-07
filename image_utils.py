@@ -50,6 +50,7 @@ class ImageCleaner(object):
 		error_margin=0.05
 		minimum_percent_blue = percent_blue.max()-error_margin
 		minimum_percent_red = percent_red.max()-error_margin
+		print(np.where(percent_blue >= minimum_percent_blue)[0].min())
 		relevant = data[:,
 						np.where(percent_blue >= minimum_percent_blue)[0].min() : 
 						np.where(percent_red >= minimum_percent_red)[0].max(), :
